@@ -46,6 +46,11 @@ Window {
             //            width: mainWindow.width
             name: model.index+". "+model.name
             balance: model.balance
+            age: "Age: "+model.age
+            email: "Email: "+model.email
+            gender: "Gender: "+ model.gender
+            phone: "Phone: "+model.phone
+
         }
     }
     function loadData(start,end){
