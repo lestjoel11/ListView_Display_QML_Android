@@ -2,10 +2,11 @@ import QtQuick 2.15
 
 Rectangle{
     id: container
-    width: 300
+    width: 600
     border.color: "black"
     border.width: 2
     radius:2
+
     property alias name : name.text
     property alias balance : balance.text
 
@@ -14,6 +15,7 @@ Rectangle{
     property alias email: email.text
     property alias phone: phone.text
     property alias gender: gender.text
+
     states: [
         State{
             name: "collapsed"

@@ -14,6 +14,7 @@ Window {
     ListView{
         id: usersList
         anchors.fill: parent
+        anchors.margins: 20
         header: Text{
             id: title
             anchors.horizontalCenter: parent.horizontalCenter
@@ -21,6 +22,7 @@ Window {
             font.pixelSize: 16
             font.bold: true
         }
+
         clip:true
         model:listModel
         delegate: listItem
@@ -40,12 +42,7 @@ Window {
     }
     Component{
         id:listItem
-
         Row{
-            Component.onCompleted:
-                ()=>{
-                    anchors.horizontalCenter = parent.horizontalCenter
-                }
             ExpansionPanel{
                 name: model.index+". "+model.name
                 balance: model.balance
@@ -53,34 +50,33 @@ Window {
                 email: "Email: "+model.email
                 gender: "Gender: "+ model.gender
                 phone: "Phone: "+model.phone
+                //                horizontalAlignment: Qt.AlignHCenter
             }
         }
     }
-    function loadData(start,end){
-        let xhr = new XMLHttpRequest()
-        let url = "http://localhost:3000/"+start+"-"+end
-        console.log(url)
-        xhr.open("GET",url)
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState===XMLHttpRequest.DONE){
-                if(xhr.status===200){
-                    let data = JSON.parse(xhr.responseText)
-                    for(let i=0; i<data.length; i++){
-                        listModel.append({
-                                             index:data[i].index+1,
-                                             balance:data[i].balance,
-                                             age:data[i].age,
-                                             name:data[i].name,
-                                             gender:data[i].gender,
-                                             email:data[i].email,
-                                             phone:data[i].phone
-                                         })
+        function loadData(start,end){
+            let xhr = new XMLHttpRequest()
+            let url = "http://localhost:3000/"+start+"-"+end
+            console.log(url)
+            xhr.open("GET",url)
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState===XMLHttpRequest.DONE){
+                    if(xhr.status===200){
+                        let data = JSON.parse(xhr.responseText)
+                        for(let i=0; i<data.length; i++){
+                            listModel.append({
+                                                 index:data[i].index+1,
+                                                 balance:data[i].balance,
+                                                 age:data[i].age,
+                                                 name:data[i].name,
+                                                 gender:data[i].gender,
+                                                 email:data[i].email,
+                                                 phone:data[i].phone
+                                             })
+                        }
                     }
                 }
             }
+            xhr.send()
         }
-        xhr.send()
     }
-}
-
-
