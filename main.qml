@@ -8,26 +8,24 @@ Window {
     visible: true
     title: qsTr("User Details")
 
-    property int start : 0;
+    property int start: 0;
     property int end : 20;
 
     ListView{
-        id:usersList
+        id: usersList
         anchors.fill: parent
-        anchors.centerIn: parent
-        header:     Text{
+        header: Text{
             id: title
             anchors.horizontalCenter: parent.horizontalCenter
             text: "Balance"
             font.pixelSize: 16
             font.bold: true
         }
-        anchors.leftMargin: 10;
         clip:true
         model:listModel
         delegate: listItem
         onMovementEnded: {
-            if(contentY===contentHeight-height-headerItem.height){
+            if(contentY === contentHeight-height-headerItem.height){
                 start=end
                 end+=20
                 loadData(start,end)
@@ -42,15 +40,20 @@ Window {
     }
     Component{
         id:listItem
-        ExpansionPanel{
-            //            width: mainWindow.width
-            name: model.index+". "+model.name
-            balance: model.balance
-            age: "Age: "+model.age
-            email: "Email: "+model.email
-            gender: "Gender: "+ model.gender
-            phone: "Phone: "+model.phone
 
+        Row{
+            Component.onCompleted:
+                ()=>{
+                    anchors.horizontalCenter = parent.horizontalCenter
+                }
+            ExpansionPanel{
+                name: model.index+". "+model.name
+                balance: model.balance
+                age: "Age: "+model.age
+                email: "Email: "+model.email
+                gender: "Gender: "+ model.gender
+                phone: "Phone: "+model.phone
+            }
         }
     }
     function loadData(start,end){
