@@ -3,14 +3,13 @@ import QtQuick 2.15
 Rectangle{
     id: container
     width: 600
-    border.color: "black"
-    border.width: 2
-    radius:2
+    radius: 2
+    border { color: "black"; width: 2 }
 
-    property alias name : name.text
-    property alias balance : balance.text
+    property alias name: name.text
+    property alias balance: balance.text
 
-    property alias age: age.text
+    property alias age : age.text
 
     property alias email: email.text
     property alias phone: phone.text
@@ -19,33 +18,15 @@ Rectangle{
     states: [
         State{
             name: "collapsed"
-            PropertyChanges {
-                target: container
-                implicitHeight:50
-            }
-            PropertyChanges{
-                target: detailsHeader
-                y: (container.height-detailsHeader.height)/2
-            }
-            PropertyChanges {
-                target: moreDetails
-                visible: false
-            }
+            PropertyChanges { target: container; implicitHeight: 50 }
+            PropertyChanges{ target: detailsHeader; y: (container.height-detailsHeader.height)/2 }
+            PropertyChanges { target: moreDetails; visible: false }
         },
         State{
             name:"expanded"
-            PropertyChanges{
-                target: detailsHeader
-                y: 5
-            }
-            PropertyChanges {
-                target: container
-                implicitHeight: moreDetails.height+detailsHeader.height+10
-            }
-            PropertyChanges {
-                target: moreDetails
-                visible: true
-            }
+            PropertyChanges{ target: detailsHeader; y: 5}
+            PropertyChanges { target: container ;implicitHeight: moreDetails.height+detailsHeader.height+10 }
+            PropertyChanges { target: moreDetails; visible: true }
         }
     ]
     transitions: [
@@ -91,37 +72,23 @@ Rectangle{
         }
 
     ]
-
     state: "collapsed"
     Row{
         id:detailsHeader
         anchors.horizontalCenter: container.horizontalCenter
         spacing: 10
-        Text {
-            id: name
-        }
-        Text {
-            id: balance
-        }
+        Text { id: name }
+        Text { id: balance }
     }
     Row{
         id:moreDetails
-        anchors.top: detailsHeader.bottom
-        anchors.horizontalCenter: container.horizontalCenter
+        anchors { top: detailsHeader.bottom; horizontalCenter: container.horizontalCenter}
         Column{
             spacing: 3
-            Text {
-                id: age
-            }
-            Text {
-                id: gender
-            }
-            Text {
-                id: email
-            }
-            Text {
-                id: phone
-            }
+            Text { id: age }
+            Text { id: gender }
+            Text { id: email }
+            Text { id: phone }
         }
     }
     MouseArea{
