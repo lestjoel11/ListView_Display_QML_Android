@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>ExpansionPanel.qml</file>
+        <file>script.js</file>
+        <file>worker.js</file>
+        <file>backup.qml</file>
     </qresource>
 </RCC>

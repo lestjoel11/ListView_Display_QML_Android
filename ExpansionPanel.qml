@@ -2,7 +2,7 @@ import QtQuick 2.15
 
 Rectangle{
     id: container
-    width: 600
+    implicitWidth: 192
     radius: 2
     border { color: "black"; width: 2 }
 
@@ -73,10 +73,11 @@ Rectangle{
 
     ]
     state: "collapsed"
+
     Row{
         id:detailsHeader
         anchors.horizontalCenter: container.horizontalCenter
-        spacing: 10
+        spacing: 5
         Text { id: name }
         Text { id: balance }
     }
@@ -93,9 +94,7 @@ Rectangle{
     }
     MouseArea{
         anchors.fill: parent
-        onClicked: function(){
-            container.state = (container.state==="collapsed"?"expanded":"collapsed")
-        }
+        onClicked: { container.state = (container.state==="collapsed"?"expanded":"collapsed") }
     }
 }
 
