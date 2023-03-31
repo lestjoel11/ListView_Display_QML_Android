@@ -7,14 +7,17 @@
 #include "QSqlRecord"
 #include "QSqlQueryModel"
 
+
 userdetail::userdetail(QObject *parent)
     : QAbstractListModel(parent)
 {
+
+
     setStartPosition(0); setEndPosition(19);
     manager = new QNetworkAccessManager(this);
+    db.setDatabaseName("usersDB.db");
 
     //connect to db
-    db.setDatabaseName("usersDB.db");
 
     if (!db.open()) {
         qDebug() << "ERROR: " << db.lastError();
@@ -25,11 +28,15 @@ userdetail::userdetail(QObject *parent)
     connect(manager, &QNetworkAccessManager::finished, this, &userdetail::serverItemCount);
     connect(this, &userdetail::serverCountReply, this, &userdetail::dbOperations, Qt::QueuedConnection);
 
-//    query.exec("DROP TABLE IF EXISTS users");
+    //    query.exec("DROP TABLE IF EXISTS users");
 
 }
-void userdetail::dbOperations(){
-
+userdetail::~userdetail()
+{
+    db.close();
+}
+void userdetail::dbOperations()
+{
     int dbRowCount = 0;
     query.prepare("SELECT COUNT(*) FROM users");
     if (query.exec() && query.next()) {
@@ -154,13 +161,14 @@ void userdetail::serverItemCount(QNetworkReply *reply)
 {
     if(reply->error() == QNetworkReply::NoError){
         setServerItemCountVal(QJsonDocument::fromJson(reply->readAll()).object().value("itemCount").toInt());
+    } else {
+        qDebug() << reply->error();
     }
 }
 
 void userdetail::sendReq(QNetworkAccessManager *manager, QString requestType="")
 {
-    QString url = requestType=="itemCount"?"http://localhost:3000/itemCount":"http://localhost:3000/";
-
+    QString url = requestType=="itemCount"?"http://192.168.0.135:4000/itemCount":"http://192.168.0.135:4000/";
     QNetworkRequest request((QUrl(url)));
     QNetworkReply *reply = manager->get(request);
 }

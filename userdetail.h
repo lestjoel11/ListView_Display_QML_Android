@@ -22,6 +22,7 @@ class userdetail : public QAbstractListModel
     Q_PROPERTY(int endPosition READ getEndPosition WRITE setEndPosition NOTIFY endPositionChanged)
 
 public:
+    ~userdetail();
     QList <QVariantMap> m_datas;
     explicit userdetail(QObject *parent = nullptr);
 
@@ -89,7 +90,7 @@ private:
     int startPosition;
     int endPosition;
     QJsonArray jsonData;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");;
     int serverItemCountVal;
     QNetworkAccessManager *manager;
     QSqlQuery query;

@@ -5,5 +5,6 @@
         <file>script.js</file>
         <file>worker.js</file>
         <file>backup.qml</file>
+        <file>AddContactBtn.qml</file>
     </qresource>
 </RCC>
