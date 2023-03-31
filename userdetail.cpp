@@ -28,7 +28,7 @@ userdetail::userdetail(QObject *parent)
     connect(manager, &QNetworkAccessManager::finished, this, &userdetail::serverItemCount);
     connect(this, &userdetail::serverCountReply, this, &userdetail::dbOperations, Qt::QueuedConnection);
 
-    //    query.exec("DROP TABLE IF EXISTS users");
+//        query.exec("DROP TABLE IF EXISTS users");
 
 }
 userdetail::~userdetail()
@@ -59,9 +59,6 @@ void userdetail::dbOperations()
     }else {
         readFromDB();
     }
-
-
-
 }
 
 
@@ -220,7 +217,7 @@ void userdetail::readFromDB()
 void userdetail::increaseRows()
 {
     setStartPosition(getEndPosition());
-    setEndPosition(getEndPosition()+20);
+    setEndPosition(getEndPosition()+19);
     readFromDB();
 }
 

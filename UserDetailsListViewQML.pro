@@ -1,5 +1,7 @@
 QT += quick
 QT += sql
+QT += core-private
+
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -30,12 +32,12 @@ HEADERS += \
   usercontact.h \
   userdetail.h
 
-#android {
-#    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+android {
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
-#    DISTFILES += \
-#        android/AndroidManifest.xml \
-#        android/build.gradle \
-#        android/res/values/libs.xml \
-#        android/src/app/src/main/java/com/example/listviewdisplayqml/MainActivity.java
-#}
+    DISTFILES += \
+        android/AndroidManifest.xml \
+        android/build.gradle \
+        android/res/values/libs.xml \
+        android/src/com/listviewqml/contact/MainActivity.java
+}

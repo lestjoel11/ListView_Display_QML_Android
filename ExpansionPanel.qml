@@ -2,7 +2,7 @@ import QtQuick 2.15
 
 Rectangle{
   id: container
-  implicitWidth: 192
+  implicitWidth: 400
   radius: 2
   border { color: "black"; width: 2 }
 
@@ -21,11 +21,13 @@ Rectangle{
       PropertyChanges { target: container; height: 50 }
       PropertyChanges { target: detailsHeader; y: (container.height-detailsHeader.height)/2 }
       PropertyChanges { target: moreDetails; visible: false }
+//      PropertyChanges { target: footer; visible: false }
     },
     State{
       name:"expanded"
       PropertyChanges { target: detailsHeader; y: 5}
       PropertyChanges { target: moreDetails; visible: true }
+//      PropertyChanges { target: footer; visible: true }
       PropertyChanges { target: container; height: moreDetails.height+detailsHeader.height+moreDetails.spacing+detailsHeader.spacing+30}
     }
   ]
@@ -92,6 +94,10 @@ Rectangle{
       Text { id: phone }
     }
   }
+//  Row {
+//    id: footer
+//    AddContactBtn {}
+//  }
 
   MouseArea {
     anchors.fill:  container

@@ -8,9 +8,9 @@ Rectangle {
   }
   height: addButton.height + 5
   width: addButton.width + 5
-  anchors.top: phone.bottom
+//  anchors.top: phone.bottom
   radius: 2
-  border { color: "blue"; width: 5 }
+  border { color: "blue"; width: 3 }
   MouseArea {
     anchors.fill: parent
     onClicked: {

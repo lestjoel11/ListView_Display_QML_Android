@@ -10,13 +10,10 @@ Window {
   title: qsTr("User Details")
 
   property int gridViewIndex: 0
-  GridView {
-
+  ListView {
     signal updateRows()
-    id: usersGrid
+    id: usersList
     anchors.fill: parent
-    cellWidth: 200
-    cellHeight: 350
     clip: true
     header: Text {
       id: title
@@ -26,13 +23,12 @@ Window {
     model: UserDetail {}
     onUpdateRows: model.increaseRows()
     delegate: delegateItem
-    snapMode: GridView.SnapToRow
   }
 
   Component {
     id: delegateItem
     Row {
-      spacing: 30
+      id: dataRow
       ExpansionPanel {
         name: model.id + ". " + model.name
         balance: model.balance
@@ -41,11 +37,10 @@ Window {
         gender: "Gender: " + model.gender
         phone: "Phone: " + model.phone
         Component.onCompleted: {
-          if (index > parent.GridView.view.count - 5 ) { usersGrid.updateRows(); }
+          if (index > dataRow.ListView.view.count - 5 ) { usersList.updateRows(); }
         }
+        AddContactBtn { contactInfo: [model.name, model.email, model.phone]; }
       }
-      AddContactBtn { contactInfo: [model.name, model.email, model.phone]; }
     }
-
   }
 }
