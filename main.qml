@@ -27,20 +27,21 @@ Window {
 
   Component {
     id: delegateItem
-    Row {
-      id: dataRow
-      ExpansionPanel {
-        name: model.id + ". " + model.name
-        balance: model.balance
-        age: "Age: " + model.age
-        email: "Email: " + model.email
-        gender: "Gender: " + model.gender
-        phone: "Phone: " + model.phone
-        Component.onCompleted: {
-          if (index > dataRow.ListView.view.count - 5 ) { usersList.updateRows(); }
-        }
-        AddContactBtn { contactInfo: [model.name, model.email, model.phone]; }
+    //    Row {
+    //      id: dataRow
+    ExpansionPanel {
+      serial: model.id + ". "
+      name: model.name
+      balance: model.balance
+      age: model.age
+      email: model.email
+      gender: model.gender
+      phone: model.phone
+      Component.onCompleted: {
+        if (index > ListView.view.count - 5 ) { usersList.updateRows(); }
       }
+      //        AddContactBtn { contactInfo: [model.name, model.email, model.phone]; }
+      //      }
     }
   }
 }

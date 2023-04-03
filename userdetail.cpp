@@ -151,21 +151,24 @@ void userdetail::serverReply(QNetworkReply *reply)
 {
     if(reply->error() == QNetworkReply::NoError){
         setJsonData(QJsonDocument::fromJson(reply->readAll()).array());
+    } else {
+        qDebug() << "Error reading data from server " << reply->error();
     }
 }
 
 void userdetail::serverItemCount(QNetworkReply *reply)
 {
+     qDebug() << "URL: " << reply->url();
     if(reply->error() == QNetworkReply::NoError){
         setServerItemCountVal(QJsonDocument::fromJson(reply->readAll()).object().value("itemCount").toInt());
     } else {
-        qDebug() << reply->error();
+        qDebug() << "Error reading item count: " << reply->error();
     }
 }
 
 void userdetail::sendReq(QNetworkAccessManager *manager, QString requestType="")
 {
-    QString url = requestType=="itemCount"?"http://192.168.0.135:4000/itemCount":"http://192.168.0.135:4000/";
+    QString url = requestType=="itemCount"?reqUrl+"/itemCount":reqUrl;
     QNetworkRequest request((QUrl(url)));
     QNetworkReply *reply = manager->get(request);
 }

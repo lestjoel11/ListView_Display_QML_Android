@@ -1,4 +1,6 @@
 import QtQuick 2.15
+//import com.example.model
+
 
 Rectangle{
   id: container
@@ -14,20 +16,21 @@ Rectangle{
   property alias email: email.text
   property alias phone: phone.text
   property alias gender: gender.text
+  property alias serial : serial.text;
 
   states: [
     State{
       name: "collapsed"
-      PropertyChanges { target: container; height: 50 }
-      PropertyChanges { target: detailsHeader; y: (container.height-detailsHeader.height)/2 }
+      PropertyChanges { target: container; height: detailsHeader.height+contactNumber.height+30 }
+//      PropertyChanges { target: detailsHeader; y: (container.height-detailsHeader.height)/2 }
       PropertyChanges { target: moreDetails; visible: false }
-//      PropertyChanges { target: footer; visible: false }
+      //      PropertyChanges { target: footer; visible: false }
     },
     State{
       name:"expanded"
       PropertyChanges { target: detailsHeader; y: 5}
       PropertyChanges { target: moreDetails; visible: true }
-//      PropertyChanges { target: footer; visible: true }
+      //      PropertyChanges { target: footer; visible: true }
       PropertyChanges { target: container; height: moreDetails.height+detailsHeader.height+moreDetails.spacing+detailsHeader.spacing+30}
     }
   ]
@@ -76,32 +79,65 @@ Rectangle{
   ]
   state: "collapsed"
 
+  UserContact {
+    id: userContact
+  }
+
   Row{
     id:detailsHeader
     anchors.horizontalCenter: container.horizontalCenter
     spacing: 5
-    Text { id: name }
+    Text { id: serial; font.pointSize: 16}
+    Text { id: name; font.pointSize: 16}
     Text { id: balance }
   }
+  Row {
+    id: contactNumber
+    anchors.top: detailsHeader.bottom
+    anchors.horizontalCenter: container.horizontalCenter
+    Text {
+      id: phone
+      font.pointSize: 12
+      color: "gray"
+
+    }
+  }
+  Row {
+    id: contactAction
+    anchors.top: contactNumber.bottom
+    anchors.horizontalCenter: container.horizontalCenter
+    Text {
+      id: contactStatus
+      text: "Add to contact or edit contact based on Contact Existing"
+      font.pointSize: 14
+      color: "green"
+    }
+  }
+
   Row{
     id: moreDetails
     anchors { top: detailsHeader.bottom; horizontalCenter: container.horizontalCenter}
     Column{
       spacing: 5
-      Text { id: age }
-      Text { id: gender }
-      Text { id: email }
-      Text { id: phone }
+      Row {
+        Text { id: labelForAge; text: "Age: " }
+        Text { id: age }
+      }
+      Row {
+        Text { id: labelForGender; text: "Gender: " }
+        Text { id: gender }
+      }
+      Row{
+        Text { id: labelForEmail; text: "Email: " }
+        Text { id: email }
+      }
+
     }
   }
-//  Row {
-//    id: footer
-//    AddContactBtn {}
-//  }
-
   MouseArea {
     anchors.fill:  container
-    onClicked: { container.state = (container.state==="collapsed"?"expanded":"collapsed") }
+//    onClicked: { container.state = (container.state==="collapsed"?"expanded":"collapsed") }
+//    onClicked: { userContact.contactData([name.text, email.text, phone.text]) }
   }
 
 }
